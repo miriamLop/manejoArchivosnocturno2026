@@ -17,67 +17,115 @@ import java.util.Scanner;
  * @author meli
  */
 public class GestionArchivos {
+
     //defincion de lista
     List<String> listaContactos;
+   
     //constructor
 
     public GestionArchivos() {
-        listaContactos=new ArrayList<>();
+        listaContactos = new ArrayList<>();
     }
-    
+
     //objeto de lectura
-    Scanner leer=new Scanner(System.in);
+    Scanner leer = new Scanner(System.in);
+
     //metodos
-    public void crearArchivo(){
-        Path path=Paths.get("E:\\programacionII\\misContactos.txt");
+    public void crearArchivo() {
+        Path path = Paths.get("D:\\programacion\\misContactos.txt");
         try {
-            if(!Files.exists(path)){
+            if (!Files.exists(path)) {
                 //no existe
                 Files.createFile(path);
                 System.out.println("Archivo creado");
-            }else{
+            } else {
                 System.out.println("El archivo ya existe");
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void adicionarContacto(){
-      Path path=Paths.get("E:\\programacionII\\misContactos.txt");
-      String nombre,direccion,telefono,res="S";
+
+    public void adicionarContacto() {
+        Path path = Paths.get("D:\\programacion\\misContactos.txt");
+        String nombre, direccion, telefono, res = "S";
         try {
-            if(Files.exists(path)){
-                do{
+            if (Files.exists(path)) {
+                do {
                     System.out.println("Digite nombre del contacto a adicionar");
-                    nombre=leer.nextLine();
+                    nombre = leer.nextLine();
                     System.out.println("digite direccion");
-                    direccion=leer.nextLine();
+                    direccion = leer.nextLine();
                     System.out.println("Digite numero de telefono");
-                    telefono=leer.nextLine();
-                    nombre=nombre+"-"+direccion+"-"+telefono+"\n";
+                    telefono = leer.nextLine();
+                    nombre = nombre + "-" + direccion + "-" + telefono + "\n";
                     //guardar el contenido
                     Files.write(path, nombre.getBytes(), StandardOpenOption.APPEND);
                     System.out.println("Contacto registrado");
                     System.out.println("Desea seguir agregando contactos S/N?");
-                    res=leer.nextLine();
-                }while(res.equalsIgnoreCase("S"));
-            }else{
+                    res = leer.nextLine();
+                } while (res.equalsIgnoreCase("S"));
+            } else {
                 System.out.println("Error, no existe el archivo");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public void mostrarcontenido(){
-        Path path=Paths.get("E:\\programacionII\\misContactos.txt");
+
+    public void mostrarContenido() {
+        Path path = Paths.get("D:\\programacion\\misContactos.txt");
         try {
-            if(Files.exists(path)){
-                listaContactos=Files.readAllLines(path);
-            }else{
+            if (Files.exists(path)) {
+                listaContactos = Files.readAllLines(path);
+                if (!listaContactos.isEmpty()) {
+                    for (String linea : listaContactos) {
+                        System.out.println(linea);
+                    }
+                }else{
+                    System.out.println("el archivo esta vacio");
+                }
+            } else {
                 System.out.println("no existe el archivo");
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void buscarContacto(){
+        String nomContacto;
+        int sw=0;
+        String vector[];
+         Path path = Paths.get("D:\\programacion\\misContactos.txt");
+         try {
+            if(Files.exists(path)){
+                listaContactos=Files.readAllLines(path);
+                if(!listaContactos.isEmpty()){
+                    System.out.println("digite nombre de contacto a buscar");
+                    nomContacto=leer.nextLine();
+                    for(String linea:listaContactos){
+                        vector=linea.split("-");
+                        if(nomContacto.equalsIgnoreCase(vector[0])){
+                            sw=1;
+                            System.out.println("---- CONTACTO ENCONTRADO ----");
+                            System.out.println("Nombre: "+vector[0]);
+                            System.out.println("direccion: "+vector[1]);
+                            System.out.println("Nro. celular: "+vector[2]);
+                            System.out.println("--------------------------------");
+                        }
+                    }
+                    if(sw==0){
+                        System.out.println("El contacto buscado, no esta registrado");
+                    }
+                }else{
+                    System.out.println("el archivo esta vacio");
+                }
+            }else{
+                System.out.println("el archivo no existe");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
