@@ -16,11 +16,13 @@ public class PrincipalArchivo {
         Scanner leer=new Scanner(System.in);
         boolean continuar=true;
         int opc;
-        do{
+         do{
             System.out.println("MENU DE OPCIONES");
             System.out.println("1. Crear archivo");
             System.out.println("2. Adicionar contenido");
-            System.out.println("3. Salir");
+            System.out.println("3. mostrar contenido del archivo");
+            System.out.println("4. Buscar un contacto");
+            System.out.println("5. salir");
             System.out.println("digite una opcion");
             opc=leer.nextInt();
             switch (opc) {
@@ -29,6 +31,12 @@ public class PrincipalArchivo {
                     break;
                 case 2:
                     obj.adicionarContacto();
+                    break;
+                case 3:
+                    obj.mostrarContenido();
+                    break;
+                case 4:
+                    obj.buscarContacto();
                     break;
                 default:
                     continuar=false;
