@@ -74,7 +74,7 @@ public class OperacionesTarjeta {
  
     //guardando la lista de objetos al archivo
     public void guardarObjetos() {
-        String ruta = "D:\\programacionII_Nocturno\\clientes.txt";
+        String ruta = "E:\\programacionII\\archivos\\clientes.txt";
         try {
             FileOutputStream archivo = new FileOutputStream(ruta);
             ObjectOutputStream oos = new ObjectOutputStream(archivo);
@@ -94,25 +94,54 @@ public class OperacionesTarjeta {
 
 //cargando los objetos de los clientes
     public void leerClientes() {
-        String ruta = "D:\\programacionII_Nocturno\\clientes.txt";
+        String ruta = "E:\\programacionII\\archivos\\clientes.txt";
         try {
             FileInputStream archivo = new FileInputStream(ruta);
             ObjectInputStream ois = new ObjectInputStream(archivo);
             if (ois != null) {
+                //casteando de una clase Object a List<Cliente>
                 listaClientes = (List<Cliente>) ois.readObject();
             } else {
                 System.out.println("El objeto es nulo");
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-            // Logger.getLogger(OperacionesClienteTarjeta.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(OperacionesTarjeta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             ex.printStackTrace();
             // Logger.getLogger(OperacionesTarjeta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
-            // Logger.getLogger(OperacionesClienteTarjeta.class.getName()).log(Level.SEVERE, null, ex);
+            // Logger.getLogger(OperacionesTarjeta.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void deposito(){
+        int sw=0;
+        String ci;
+        double monto;
+        if(!listaClientes.isEmpty()){
+            System.out.println("Digite su numero de cedula");
+            ci=leer.nextLine();
+            for(Cliente c:listaClientes){
+                if(c.getNroCedula().equalsIgnoreCase(ci)){
+                    sw=1;
+                    do{
+                        System.out.println("Digite monto a depositar");
+                        monto=leer.nextDouble();
+                    }while(monto<=0);
+                    //actualizar su saldo
+                    c.getTarjeta().setSaldo(c.getTarjeta().getSaldo()+monto);
+                    System.out.println("Deposito realizado");
+                    System.out.println("Saldo actual: "+c.getTarjeta().getSaldo());
+                }
+            }
+            if(sw==0){
+                System.out.println("no se encontro al cliente");
+            }
+        }else{
+            System.out.println("No se tiene clientes registrados");
+        }
+        
     }
 
 }

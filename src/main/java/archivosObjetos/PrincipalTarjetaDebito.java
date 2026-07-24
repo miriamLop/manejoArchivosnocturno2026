@@ -19,14 +19,25 @@ public class PrincipalTarjetaDebito {
         do{
             System.out.println("MENU DE OPCIONES");
             System.out.println("1. Registrar cliente - Tarjeta debito");           
-            System.out.println("2. Salir");
+            System.out.println("2. mostrar todos los clientes");
+            System.out.println("3. Deposito de dinero");
+            System.out.println("4. salir");
             System.out.println("digite una opcion");
             opc=leer.nextInt();
             switch (opc) {
                 case 1:
                     obj.registrarNuevoCliente();
                     obj.guardarObjetos();
-                    break;               
+                    break;   
+                case 2:
+                    obj.leerClientes();
+                    obj.mostrarClientes();
+                    break;
+                case 3:
+                    obj.leerClientes();
+                    obj.deposito();
+                    obj.guardarObjetos();
+                    break;
                 default:
                     continuar=false;
                     break;
