@@ -18,17 +18,18 @@ import java.util.Scanner;
  */
 public class GestionArchivos {
 
+
     //defincion de lista
     List<String> listaContactos;
-   
+     //objeto de lectura
+    Scanner leer=new Scanner(System.in);
     //constructor
 
     public GestionArchivos() {
         listaContactos = new ArrayList<>();
     }
 
-    //objeto de lectura
-    Scanner leer = new Scanner(System.in);
+ 
 
     //metodos
     public void crearArchivo() {
@@ -128,4 +129,5 @@ public class GestionArchivos {
             e.printStackTrace();
         }
     }
+
 }
