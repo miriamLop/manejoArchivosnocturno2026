@@ -21,7 +21,8 @@ public class PrincipalTarjetaDebito {
             System.out.println("1. Registrar cliente - Tarjeta debito");           
             System.out.println("2. mostrar todos los clientes");
             System.out.println("3. Deposito de dinero");
-            System.out.println("4. salir");
+            System.out.println("4. bloquear Tarjeta de debito");
+            System.out.println("5. Salir");
             System.out.println("digite una opcion");
             opc=leer.nextInt();
             switch (opc) {
@@ -36,6 +37,11 @@ public class PrincipalTarjetaDebito {
                 case 3:
                     obj.leerClientes();
                     obj.deposito();
+                    obj.guardarObjetos();
+                    break;
+                case 4:
+                    obj.leerClientes();
+                    obj.bloquearTarjeta();
                     obj.guardarObjetos();
                     break;
                 default:

@@ -71,10 +71,9 @@ public class OperacionesTarjeta {
         }
     }
 
- 
     //guardando la lista de objetos al archivo
     public void guardarObjetos() {
-        String ruta = "E:\\programacionII\\archivos\\clientes.txt";
+        String ruta = "D:\\programacion\\clientes.txt";
         try {
             FileOutputStream archivo = new FileOutputStream(ruta);
             ObjectOutputStream oos = new ObjectOutputStream(archivo);
@@ -94,7 +93,7 @@ public class OperacionesTarjeta {
 
 //cargando los objetos de los clientes
     public void leerClientes() {
-        String ruta = "E:\\programacionII\\archivos\\clientes.txt";
+        String ruta = "D:\\programacion\\clientes.txt";
         try {
             FileInputStream archivo = new FileInputStream(ruta);
             ObjectInputStream ois = new ObjectInputStream(archivo);
@@ -115,33 +114,68 @@ public class OperacionesTarjeta {
             // Logger.getLogger(OperacionesTarjeta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void deposito(){
-        int sw=0;
+
+    public void deposito() {
+        int sw = 0;
         String ci;
         double monto;
-        if(!listaClientes.isEmpty()){
+        if (!listaClientes.isEmpty()) {
             System.out.println("Digite su numero de cedula");
+            ci = leer.nextLine();
+            for (Cliente c : listaClientes) {
+                if (c.getNroCedula().equalsIgnoreCase(ci)) {
+                    sw = 1;
+                    if (c.getTarjeta().getEstado().equalsIgnoreCase("ACTIVO")) {
+                        do {
+                            System.out.println("Digite monto a depositar");
+                            monto = leer.nextDouble();
+                        } while (monto <= 0);
+                        //actualizar su saldo
+                        c.getTarjeta().setSaldo(c.getTarjeta().getSaldo() + monto);
+                        System.out.println("Deposito realizado");
+                        System.out.println("Saldo actual: " + c.getTarjeta().getSaldo());
+                    }else{
+                        System.out.println("La tarjeta esta INACTIVA, comuniquese con el Banco");
+                    }
+                }
+            }
+            if (sw == 0) {
+                System.out.println("no se encontro al cliente");
+            }
+        } else {
+            System.out.println("No se tiene clientes registrados");
+        }
+
+    }
+    public void bloquearTarjeta(){
+        String ci,res;
+        int sw=0;
+        if(!listaClientes.isEmpty()){
+            System.out.println("digite el numero de cedula del cliente");
             ci=leer.nextLine();
             for(Cliente c:listaClientes){
                 if(c.getNroCedula().equalsIgnoreCase(ci)){
                     sw=1;
-                    do{
-                        System.out.println("Digite monto a depositar");
-                        monto=leer.nextDouble();
-                    }while(monto<=0);
-                    //actualizar su saldo
-                    c.getTarjeta().setSaldo(c.getTarjeta().getSaldo()+monto);
-                    System.out.println("Deposito realizado");
-                    System.out.println("Saldo actual: "+c.getTarjeta().getSaldo());
+                    if(c.getTarjeta().getEstado().equalsIgnoreCase("ACTIVO")){
+                        System.out.println("Dsea bloquear su tarjeta de debito s/n");
+                        res=leer.nextLine();
+                        if(res.equalsIgnoreCase("S")){
+                            c.getTarjeta().setEstado("INACTIVO");
+                            System.out.println("Tarjeta: "+c.getTarjeta().getNumeroTarjeta()+ "BLOQUEADO");
+                        }else{
+                            System.out.println("¡Operacion cancelada!");
+                        }
+                    }else{
+                        System.out.println("La tarjeta ya esta BLOQUEADA");
+                    }
                 }
             }
             if(sw==0){
-                System.out.println("no se encontro al cliente");
+                System.out.println("no se tiene registrado al cliente");
             }
         }else{
-            System.out.println("No se tiene clientes registrados");
+            System.out.println("no se tiene clientes registrados");
         }
-        
     }
 
 }
