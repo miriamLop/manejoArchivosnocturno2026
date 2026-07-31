@@ -18,6 +18,14 @@ public class Cliente implements Serializable{
     private TarjetaDebito tarjeta;
     //constructor
 
+    public Cliente() {
+    }
+
+    public Cliente(String nombreCompleto, String nroCedula) {
+        this.nombreCompleto = nombreCompleto;
+        this.nroCedula = nroCedula;
+    }
+
     
     
     //metodos

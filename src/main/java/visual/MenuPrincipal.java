@@ -4,17 +4,21 @@
  */
 package visual;
 
+import archivosObjetos.OperacionesTarjetaVisual;
+
 /**
  *
  * @author Lab IV Incos La Paz
  */
 public class MenuPrincipal extends javax.swing.JFrame {
+    OperacionesTarjetaVisual obj;
 
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
+        obj=new OperacionesTarjetaVisual();
     }
 
     /**
@@ -54,6 +58,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Cliente");
 
         registrarItm.setText("Registrar Cliente");
+        registrarItm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarItmActionPerformed(evt);
+            }
+        });
         jMenu1.add(registrarItm);
 
         mostrarItm.setText("Mostrar clientes");
@@ -95,6 +104,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void registrarItmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarItmActionPerformed
+        // aperturando la venta de registro de cliente
+        RegistrarCliente registrar=new RegistrarCliente();
+        //pasando el objeto
+        registrar.setOperaciones(obj);
+        //el formulario adicionamos al escritorio
+        escritorio.add(registrar);
+        //visualizar
+        registrar.show();
+    }//GEN-LAST:event_registrarItmActionPerformed
 
     /**
      * @param args the command line arguments

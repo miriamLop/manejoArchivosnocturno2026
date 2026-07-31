@@ -17,6 +17,17 @@ public class TarjetaDebito implements Serializable{
     private double saldo;
     private String estado;
     // no se debe definir el objeto de lectura
+    //constructor
+
+    public TarjetaDebito() {
+    }
+
+    public TarjetaDebito(int numeroTarjeta, int nroCuenta, double saldo) {
+        this.numeroTarjeta = numeroTarjeta;
+        this.nroCuenta = nroCuenta;
+        this.saldo = saldo;
+        this.estado="ACTIVO";
+    }
     
 
     
